@@ -1,0 +1,16 @@
+{
+  "name": "block-editor",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Traditional Mongolian block editor. Based on richtext-editor.js, with a plugin slot for tables and other atomic blocks.",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "scripts": {
+    "test": "node test.cjs"
+  },
+  "devDependencies": {
+    "jsdom": "^28.1.0"
+  }
+}
