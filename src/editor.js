@@ -1709,9 +1709,13 @@ export function createBlockEditor(containerSelector, options = {}) {
         }
         deselectImage();
 
-        // Outer container is not editable; clicking empty space moves the caret into the nearest block
+        // Outer container is not editable; clicking empty space moves the caret into the nearest block.
+        // Skip when a range selection is alive — drag-selecting to the last glyph often ends on
+        // the wrapper / editor padding (esp. vertical-lr), and placeCaretAtEnd would wipe it.
         if (e.target === editor || e.target.classList.contains('block-children') ||
             e.target.classList.contains('block-wrapper')) {
+            const sel = window.getSelection();
+            if (sel && !sel.isCollapsed && editor.contains(sel.anchorNode)) return;
             const block = e.target === editor ? lastBlock() : blockOf(e.target);
             if (block && !isAtomic(block)) placeCaretAtEnd(block);
         }
